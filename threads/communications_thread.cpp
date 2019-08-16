@@ -1,5 +1,5 @@
 /**
- * @defgroup communications_thread Communication Threads
+ * @defgroup communications_thread Communication Thread
  * @{
  */
 

@@ -82,3 +82,6 @@ mbed_cloud_dev_credentials.c
 
 # Toolchain
 mbed_settings.py
+
+# Doxygen
+*.tmp
