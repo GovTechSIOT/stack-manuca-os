@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/GovTechSIOT/stack-manuca-os/blob/master/doc/manuca_os_logo_800_600.png">
+  <img src="https://raw.githubusercontent.com/GovTechSIOT/stack-manuca-os/master/doc/manuca_os_logo_800_600.png">
 </div>
 
 ## Introduction
