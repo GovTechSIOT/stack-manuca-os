@@ -12,7 +12,7 @@
 UnbufferedSerial pc(USBTX, USBRX, 115200);
 
 const chrono::seconds boot_timeout = 5s;    
-const std::string sdk_ver = "3.0.0";
+const std::string sdk_ver = "3.1.0";
 const uint8_t max_login_attempts = 3;
 const std::string poll_rate_ms = "10000";
 const std::string boot_login_pw = "stack2020";

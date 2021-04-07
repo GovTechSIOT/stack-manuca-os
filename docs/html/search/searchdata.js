@@ -1,10 +1,9 @@
 var indexSectionsWithContent =
 {
-  0: "bcdefgilmprstuvwx~",
+  0: "bcdefgimoprstuwx",
   1: "pst",
-  2: "bcdefgimprstuvwx~",
-  3: "bcdpst",
-  4: "cl"
+  2: "bcdefgimprstuwx",
+  3: "bcdopst"
 };
 
 var indexSectionNames =
@@ -12,8 +11,7 @@ var indexSectionNames =
   0: "all",
   1: "classes",
   2: "functions",
-  3: "groups",
-  4: "pages"
+  3: "groups"
 };
 
 var indexSectionLabels =
@@ -21,7 +19,6 @@ var indexSectionLabels =
   0: "All",
   1: "Classes",
   2: "Functions",
-  3: "Modules",
-  4: "Pages"
+  3: "Modules"
 };
 

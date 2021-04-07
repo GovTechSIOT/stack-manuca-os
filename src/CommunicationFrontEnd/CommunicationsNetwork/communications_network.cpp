@@ -36,7 +36,7 @@ bool ConfigNetworkInterface(NetworkInterface*& network)
     
     #ifdef USE_WIFI
     const int esp32_serial_baud_rate = 115200;
-    ESP32Interface* netif = new ESP32Interface(MBED_CONF_APP_ESP32_EN, NC, MBED_CONF_APP_WIFI_TX, MBED_CONF_APP_WIFI_RX, false, NC, NC, esp32_serial_baud_rate);
+    ESP32Interface* netif = new ESP32Interface(MBED_CONF_APP_WIFI_EN, NC, MBED_CONF_APP_WIFI_TX, MBED_CONF_APP_WIFI_RX, false, NC, NC, esp32_serial_baud_rate);
     rc = netif->connect(WIFI_SSID.c_str(), WIFI_PASSWORD.c_str(), MBED_CONF_APP_WIFI_SECURITY);
     #else
     EthernetInterface* netif = new EthernetInterface();

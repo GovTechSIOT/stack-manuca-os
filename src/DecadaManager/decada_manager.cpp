@@ -38,7 +38,10 @@ csr_sign_resp DecadaManager::SignCertificateSigningRequest(std::string csr)
     Json::Value message_content;
     message_content["csr"] = csr;
     message_content["validDay"] = 365;
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
     message_content["issueAuthority"] = "ECC";
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
+
     Json::StreamWriterBuilder builder;
     builder["indentation"] = "";
     std::string body = Json::writeString(builder, message_content);

@@ -1,5 +1,5 @@
 /**
- * @defgroup crypto_engine_v3 Crypto Engine V3
+ * @defgroup crypto_engine Crypto Engine
  * @{
  */
 
@@ -24,17 +24,20 @@
 #undef TRACE_GROUP
 #define TRACE_GROUP  "CryptoEngine"
 
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 0)
+#define MBEDTLS_KEY_SIZE    (2048)
+#define MBEDTLS_EXPONENT 	(65537)
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
+
 /**
- *  @brief  Generate an ECC keypair.
+ *  @brief  Generate a keypair.
  *  @author Lee Tze Han
  *  @return true (success) / false (failure)
- *  @note   If a secure element is not used, the private key will be written to flash
+ *  @note   If a secure element is not used (set in mbed_app.json), an RSA keypair is generated with the private key written to flash. 
+ *          Otherwise, an ECC keypair is generated using the secure element.
  */
 bool CryptoEngine::GenerateKeypair(void)
 {
-    int rc;
-    unsigned char buf[512];
-
 #if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
     if (!secure_element_->GenerateEccKeypair(ecp_keypair_))
     {
@@ -48,16 +51,17 @@ bool CryptoEngine::GenerateKeypair(void)
     pk_info_ = secure_element_->GetConfiguredPkInfo();
     pk_ctx_.pk_info = &pk_info_;
 #else
-    rc = mbedtls_ecp_gen_key(MBEDTLS_ECP_DP_SECP256R1, &ecp_keypair_, mbedtls_ctr_drbg_random, &ctrdrbg_ctx_);
+    int rc = mbedtls_rsa_gen_key(&rsa_keypair_, mbedtls_ctr_drbg_random, &ctrdrbg_ctx_, MBEDTLS_KEY_SIZE, MBEDTLS_EXPONENT);
     if (rc != 0)
     {
-        tr_warn("mbedtls_ecp_gen_key returned -0x%04X - FAILED", -rc);
+        tr_warn("mbedtls_rsa_gen_key returned -0x%04X - FAILED", -rc);
         return false;
     }
 
-    pk_ctx_.pk_ctx = &ecp_keypair_;
-    pk_ctx_.pk_info = &mbedtls_eckey_info;
+    pk_ctx_.pk_ctx = &rsa_keypair_;
+    pk_ctx_.pk_info = &mbedtls_rsa_info;
 
+    unsigned char buf[4096];
     rc = mbedtls_pk_write_key_pem(&pk_ctx_, buf, sizeof(buf));
     if (rc != 0)
     {
@@ -79,7 +83,7 @@ bool CryptoEngine::GenerateKeypair(void)
 std::string CryptoEngine::GenerateCertificateSigningRequest(void)
 {
     mbedtls_x509write_csr mbedtls_csr_request;
-    unsigned char mbedtls_csr_pem[1024];
+    unsigned char mbedtls_csr_pem[4096];
 
     std::string mbedtls_subject_name = GetCertificateSubjectName(); 
 

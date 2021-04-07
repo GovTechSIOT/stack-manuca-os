@@ -22,9 +22,14 @@ class CryptoEngine
         CryptoEngine(void)
         {
 #endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
-                
-            mbedtls_pk_init(&pk_ctx_);
+
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)    
             mbedtls_ecp_keypair_init(&ecp_keypair_);
+#else
+            mbedtls_rsa_init(&rsa_keypair_, MBEDTLS_RSA_PKCS_V15, 0);
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
+
+            mbedtls_pk_init(&pk_ctx_);
             mbedtls_entropy_init(&entropy_ctx_);
             mbedtls_ctr_drbg_init(&ctrdrbg_ctx_);
 
@@ -61,9 +66,14 @@ class CryptoEngine
         ~CryptoEngine(void)
         {
             mbedtls_pk_free(&pk_ctx_);
-            mbedtls_ecp_keypair_free(&ecp_keypair_);
             mbedtls_ctr_drbg_free(&ctrdrbg_ctx_);
             mbedtls_entropy_free(&entropy_ctx_);
+
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)    
+            mbedtls_ecp_keypair_free(&ecp_keypair_);
+#else
+            mbedtls_rsa_free(&rsa_keypair_);
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
         }
 
         std::string GenerateCertificateSigningRequest(void);
@@ -85,9 +95,11 @@ class CryptoEngine
 #if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
         SecureElement* secure_element_;
         mbedtls_pk_info_t pk_info_;
+        mbedtls_ecp_keypair ecp_keypair_;
+#else
+        mbedtls_rsa_context rsa_keypair_;
 #endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
 
-        mbedtls_ecp_keypair ecp_keypair_;
         mbedtls_entropy_context entropy_ctx_;
         mbedtls_ctr_drbg_context ctrdrbg_ctx_;
 };

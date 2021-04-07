@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['sensor_20profile_203',['Sensor Profile',['../group__sensor__profile.html',1,'']]],
-  ['subscription_20callback_204',['Subscription Callback',['../group__subscription__callback.html',1,'']]]
+  ['parameter_20control_170',['Parameter Control',['../group__param__control.html',1,'']]],
+  ['persistent_20storage_171',['Persistent Storage',['../group__persist__store.html',1,'']]]
 ];

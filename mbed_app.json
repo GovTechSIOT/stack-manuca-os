@@ -14,10 +14,6 @@
             "help": "If true, use WiFi; otherwise use Ethernet",
             "value": true
         },
-        "esp32-en": {
-            "help": "EN pin for ESP32 WiFi driver",
-            "value": "PC_8"    
-        },
         "use-tls": {
             "help": "If true, use TLS",
             "value": true
@@ -25,6 +21,10 @@
         "use-secure-element": {
             "help": "Uses the secure element to handle client authentication and cryptographic operations in the TLS session",
             "value": false
+        },
+        "wifi-en": {
+            "help": "EN pin for ESP32 WiFi driver",
+            "value": "PC_8"    
         },
         "wifi-tx": {
             "help": "TX pin to WiFi module",
