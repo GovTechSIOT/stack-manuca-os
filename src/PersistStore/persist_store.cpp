@@ -25,7 +25,7 @@ namespace PersistKey
     KeyName INIT_FLAG =                     {"init_flag"};
     KeyName TIME =                          {"time"};
 
-    /* Network COnfigurations*/
+    /* Network Configurations*/
     KeyName WIFI_SSID =                     {"wifi_ssid"};
     KeyName WIFI_PASS =                     {"wifi_pass"};
 
@@ -35,7 +35,9 @@ namespace PersistKey
     /* SSL Certificate Storage */
     KeyName CLIENT_CERTIFICATE =            {"client_certificate"};
     KeyName CLIENT_CERTIFICATE_SN =         {"client_certificate_sn"};
-    KeyName SSL_PRIVATE_KEY =               {"ssl_private_key"};    
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 0)
+    KeyName CLIENT_PRIVATE_KEY =            {"client_private_key"};
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
 }
 
 using namespace std;
@@ -175,18 +177,20 @@ void WriteClientCertificateSerialNumber(const std::string cert_sn)
     );
 }
 
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 0)
 /**
- *  @brief  Writes ssl private key to flash memory.
- *  @author Lau Lee Hong
- *  @param  key value of the private key generated on device
+ *  @brief  Writes client private key (PEM) to flash memory.
+ *  @author Lee Tze Han
+ *  @param  private_key client private key in PEM format
  */
-void WriteSSLPrivateKey(const std::string key)
+void WriteClientPrivateKey(const std::string private_key)
 {
     WriteKey(
-        PersistKey::SSL_PRIVATE_KEY,
-        key
+        PersistKey::CLIENT_PRIVATE_KEY,
+        private_key
     );
 }
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
 
 ////////////////////////////////////////////////////////////////////
 //
@@ -298,16 +302,18 @@ std::string ReadClientCertificateSerialNumber(void)
     return client_cert_serial_number;
 }
 
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 0)
 /**
- *  @brief  Reads the ssl private key from flash memory.
- *  @author Lau Lee Hong
- *  @return SSL private key in PEM format
+ *  @brief  Reads the client private key (PEM) from flash memory.
+ *  @author Lee Tze Han
+ *  @return client private key in PEM format
  */
-std::string ReadSSLPrivateKey(void)
+std::string ReadClientPrivateKey(void)
 {
-    std::string ssl_private_key = ReadKey(PersistKey::SSL_PRIVATE_KEY);
-    return ssl_private_key;
+    std::string client_private_key = ReadKey(PersistKey::CLIENT_PRIVATE_KEY);
+    return client_private_key;
 }
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
 
 ////////////////////////////////////////////////////////////////////
 //

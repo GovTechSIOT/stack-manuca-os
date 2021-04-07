@@ -3,7 +3,7 @@
                 "MBED_STACK_STATS_ENABLED=0",
                 "MBED_MEM_TRACING_ENABLED=0",
                 "OS_THREAD_LIBSPACE_NUM=5",
-                "MBEDTLS_USER_CONFIG_FILE=\"mbedtls_entropy_config.h\""
+                "MBEDTLS_USER_CONFIG_FILE=\"mbedtls_user_config.h\""
                 ],
     "config": {
         "main-stack-size": {
@@ -21,6 +21,10 @@
         "use-tls": {
             "help": "If true, use TLS",
             "value": true
+        },
+        "use-secure-element": {
+            "help": "Uses the secure element to handle client authentication and cryptographic operations in the TLS session",
+            "value": false
         },
         "wifi-tx": {
             "help": "TX pin to WiFi module",

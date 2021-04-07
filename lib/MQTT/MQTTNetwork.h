@@ -9,7 +9,14 @@
 #endif
 
 #ifdef USE_TLS
-#include "TLSSocket.h"
+/**
+ * This file has been modified from the original MQTT Library to support 
+ * the usage of opaque private keys through SecureElementSocket 
+ */
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
+#include "mbedtls/pk.h"
+#include "SecureElementSocket.h"
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
 #else
 #include "TCPSocket.h"
 #endif  // USE_TLS
@@ -18,7 +25,11 @@ class MQTTNetwork {
 public:
     MQTTNetwork(NetworkInterface* aNetwork) : network(aNetwork) {
 #ifdef USE_TLS
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
+        socket = new SecureElementSocket();
+#else
         socket = new TLSSocket();
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
 #else
         socket = new TCPSocket();
 #endif  // USE_TLS
@@ -36,8 +47,13 @@ public:
         return socket->send(buffer, len);
     }
 
-    int connect(const char* hostname, int port, const char *ssl_ca_pem = NULL,
-            const char *ssl_cli_pem = NULL, const char *ssl_pk_pem = NULL) {
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
+    int connect(const char* hostname, int port, const char *ssl_ca_pem,
+            const char *ssl_cli_pem, const mbedtls_pk_context& mbedtls_pk_ctx) {
+#else   
+    int connect(const char* hostname, int port, const char *ssl_ca_pem,
+            const char *ssl_cli_pem, const char *ssl_pk_pem) {
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
         int ret = NSAPI_ERROR_OK;
         if ((ret = socket->open(network)) != NSAPI_ERROR_OK) {
             return ret;
@@ -53,7 +69,11 @@ public:
 
 #ifdef USE_TLS
         socket->set_root_ca_cert(ssl_ca_pem);
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
+        socket->set_client_cert_key(ssl_cli_pem, mbedtls_pk_ctx);
+#else
         socket->set_client_cert_key(ssl_cli_pem, ssl_pk_pem);
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
 #endif  // USE_TLS
         return socket->connect(addr);
     }
@@ -65,7 +85,11 @@ public:
 private:
     NetworkInterface* network;
 #ifdef USE_TLS
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
+    SecureElementSocket* socket;
+#else
     TLSSocket* socket;
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
 #else
     TCPSocket* socket;
 #endif  // USE_TLS

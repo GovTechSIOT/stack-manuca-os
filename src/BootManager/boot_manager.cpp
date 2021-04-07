@@ -141,9 +141,7 @@ void RunBootManager(void)
         }
         else if (user_input == "3") 
         {
-            WriteSSLPrivateKey("");
-            WriteClientCertificate("");
-            WriteClientCertificateSerialNumber("");
+            ClearClientSslData();
             printf("DECADA MQTT Certificate & Key Cleared.\r\n");
         }
         else
@@ -234,9 +232,20 @@ void SetDefaultConfig(void)
 {
     WriteWifiSsid("WIFI_SSID");
     WriteWifiPass("WIFI_PW");
-    WriteSSLPrivateKey("");
+    ClearClientSslData();
+}
+
+/**
+ *  @brief  Clears client data used for SSL sessions
+ *  @author Lee Tze Han
+ */
+void ClearClientSslData(void)
+{
     WriteClientCertificate("");
     WriteClientCertificateSerialNumber("");
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 0)
+    WriteClientPrivateKey("");
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
 }
 
 /**

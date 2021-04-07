@@ -17,13 +17,13 @@
 #ifndef THREADS_H
 #define THREADS_H
  
-#include "decada_manager_v2.h"
+#include "decada_manager.h"
 
 /* behavior_coordinator_thread.cpp */
 void behavior_coordinator_thread(void);
 
 /* communications_thread.cpp */
-void subscription_manager_thread(DecadaManagerV2* decada_ptr);
+void subscription_manager_thread(DecadaManager* decada_ptr);
 void communications_controller_thread(void);
 
 /* event_manager_thread.cpp */

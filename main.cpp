@@ -66,7 +66,7 @@ int main()
     WirelessModuleReset();
 
     mbed_trace_init();
-    
+
     bool boot = EnterBootManager();
     if (ReadInitFlag() != "true" || boot)
     {

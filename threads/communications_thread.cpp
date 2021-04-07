@@ -12,8 +12,9 @@
 #include "global_params.h"
 #include "conversions.h"
 #include "communications_network.h"
-#include "decada_manager_v2.h"
+#include "decada_manager.h"
 #include "persist_store.h"
+#include "se_trustx.h"
 #include "time_engine.h"
 
 std::string const SENSOR_PUB_TOPIC = std::string("/sys/") + MBED_CONF_APP_DECADA_PRODUCT_KEY + "/" + device_uuid + "/thing/measurepoint/post";
@@ -25,7 +26,7 @@ std::unordered_set<std::string> subscription_topics = {SENSOR_POLL_RATE_TOPIC};
 Thread thread_1_1(osPriorityNormal, OS_STACK_SIZE*3, NULL, "SubscriptionManagerThread");
 
 /* [rtos: thread_1_1] SubscriptionManagerThread */
-void subscription_manager_thread(DecadaManagerV2* decada_ptr)
+void subscription_manager_thread(DecadaManager* decada_ptr)
 {
     #undef TRACE_GROUP
     #define TRACE_GROUP  "SubscriptionManagerThread"
@@ -53,7 +54,7 @@ void communications_controller_thread(void)
 {
     #undef TRACE_GROUP
     #define TRACE_GROUP  "CommunicationsControllerThread"
-    
+
     const chrono::milliseconds comms_thread_sleep_ms = 500ms;
     const uint32_t ntp_counter_max = 14400000;      // (comms_thread_sleep_ms)*(ntp_counter_max) = 4 hours 
     Watchdog &watchdog = Watchdog::get_instance();
@@ -74,7 +75,18 @@ void communications_controller_thread(void)
     UpdateRtc(ntp);
     watchdog.kick();
 
-    DecadaManagerV2 decada(network);
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
+    /* Setup cryptographic utilities */
+    TrustX trustx;
+    while (!trustx.isReady())
+    {
+        ThisThread::sleep_for(100ms);
+    }
+
+    DecadaManager decada(network, &trustx);
+#else
+    DecadaManager decada(network);
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
     decada.Connect();
     watchdog.kick();
 
@@ -90,7 +102,7 @@ void communications_controller_thread(void)
         decada.Subscribe(subscription_topic.c_str());
     }
 
-    DecadaManagerV2* decada_ptr = &decada; 
+    DecadaManager* decada_ptr = &decada; 
     thread_1_1.start(callback(subscription_manager_thread, decada_ptr));
 
     while (1)

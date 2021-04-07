@@ -28,6 +28,7 @@ void InitAfterLogin(void);
 void BootManagerLogin(void);
 std::string GetUserInputString(bool is_hidden = false);
 void SetDefaultConfig(void);
+void ClearClientSslData(void);
 void WirelessModuleReset(void);
 
 #endif // BOOT_MANAGER_H

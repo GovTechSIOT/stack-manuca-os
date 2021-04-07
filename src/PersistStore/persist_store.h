@@ -29,7 +29,9 @@ void WriteWifiPass(const std::string pass);
 void WriteCycleInterval(const std::string interval);
 void WriteClientCertificate(const std::string cert);
 void WriteClientCertificateSerialNumber(const std::string cert_sn);
-void WriteSSLPrivateKey(const std::string key);
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 0)
+void WriteClientPrivateKey(const std::string private_key);
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
 
 PersistConfig ReadConfig(void);
 time_t ReadSystemTime(void);
@@ -40,6 +42,8 @@ std::string ReadWifiPass(void);
 std::string ReadCycleInterval(void);
 std::string ReadClientCertificate(void);
 std::string ReadClientCertificateSerialNumber(void);
-std::string ReadSSLPrivateKey(void);
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 0)
+std::string ReadClientPrivateKey(void);
+#endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
 
 #endif // PERSIST_STORE_H
