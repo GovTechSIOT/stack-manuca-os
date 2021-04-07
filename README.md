@@ -15,7 +15,7 @@
 
 ## Requirements for Development
 * Development Machine running either Windows, MacOS or Ubuntu 18.04
-* A Mbed OS supported target (see https://os.mbed.com/platforms/)
+* An Mbed OS supported target (see https://os.mbed.com/platforms/)
   * Source code is tested using a STM32F767ZI
   * Most devices running an ARM Cortex-M4 and ARM Cortex-M7 should work as well
 * ESP32 WiFi Module
