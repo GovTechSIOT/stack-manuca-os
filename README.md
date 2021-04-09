@@ -41,12 +41,10 @@ This repository is tested on the STM32F767ZI DK with peripherals configured as:
 
 **ESP32**
 
-- Using connectors **CN501**, **CN502**
 - Pins configurable in `mbed_app.json` (`wifi-tx`, `wifi-rx`, `wifi-en`)
 
 **Infineon Optiga Trust X**
 
-- Using connectors **CN310** and RST pin connected to pin **PF2** (**CN103**)
 - Pins configurable in `lib/optiga/mbed_lib.json`
 
 ---
