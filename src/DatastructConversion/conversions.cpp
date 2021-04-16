@@ -118,6 +118,42 @@ char* DoubleToChar(char* str, double v, int decimal_digits)
 }
 
 /**
+ *  @brief  Converts an array of char to a hex string
+ *  @author Lee Tze Han
+ *  @param  arr Array of unsigned char
+ *  @param  len Length of arr
+ *  @return Hex string representation
+ */
+std::string CharToHex(unsigned char* arr, int len)
+{
+    std::stringstream ss;
+    ss << std::hex << std::setfill('0');
+
+    for (int i = 0; i < len; i++)
+    {
+        ss << std::setw(2) << static_cast<unsigned>(arr[i]);
+    }
+
+    return ss.str();
+}
+
+/**
+ *  @brief  Converts a C++ hex string to an array of char
+ *  @author Lee Tze Han
+ *  @param  str C++ hex string (left padded with 0)
+ *  @param  arr unsigned char array to store output
+ *  @return Hex string representation
+ *  @note   arr should already allocated
+ */
+void HexToChar(std::string str, unsigned char* arr)
+{
+    for (int i = 0; i < str.length() / 2; i++)
+    {
+        arr[i] = std::stoi(str.substr(2*i, 2), nullptr, 16);
+    }
+}
+
+/**
  *  @brief  Converts a C++ string to an integer
  *  @author Lee Tze Han
  *  @param  str C++ string

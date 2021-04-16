@@ -29,6 +29,10 @@ namespace PersistKey
     KeyName WIFI_SSID =                     {"wifi_ssid"};
     KeyName WIFI_PASS =                     {"wifi_pass"};
 
+    /* Boot Manager */
+    KeyName BOOTMANAGER_PASS_KEY =          {"bootmanager_pass_key"};
+    KeyName BOOTMANAGER_PASS_SALT =         {"bootmanager_pass_salt"};
+
     /* Poll Rate */
     KeyName CYCLE_INTERVAL =                {"scheduler_cycle_interval"};    
 
@@ -135,6 +139,23 @@ void WriteWifiPass(const std::string pass)
     WriteKey(
         PersistKey::WIFI_PASS,
         pass
+    );
+}
+
+/**
+ *  @brief  Writes the derived key and salt for the boot manager password to flash memory.
+ *  @author Lee Tze Han
+ *  @param  pass    BootManagerPass struct
+ */
+void WriteBootManagerPass(const BootManagerPass& pass)
+{
+    WriteKey(
+        PersistKey::BOOTMANAGER_PASS_KEY,
+        pass.derived_key
+    );
+    WriteKey(
+        PersistKey::BOOTMANAGER_PASS_SALT,
+        pass.salt
     );
 }
 
@@ -267,6 +288,21 @@ std::string ReadWifiPass(void)
 {
     string wifi_pass = ReadKey(PersistKey::WIFI_PASS);
     return wifi_pass;
+}
+
+/**
+ *  @brief  Reads the derived key and salt for the boot manager password from flash memory.
+ *  @author Lee Tze Han
+ *  @return BootManagerPass struct
+ */
+BootManagerPass ReadBootManagerPass(void)
+{
+    BootManagerPass pass;
+
+    pass.derived_key = ReadKey(PersistKey::BOOTMANAGER_PASS_KEY);
+    pass.salt = ReadKey(PersistKey::BOOTMANAGER_PASS_SALT);
+
+    return pass;
 }
 
 /**

@@ -41,4 +41,10 @@ struct PersistConfig
     std::string dummy_str;   
 };
 
+struct BootManagerPass 
+{
+    std::string derived_key;
+    std::string salt;
+};
+
 #endif // PERSIST_CONFIG_H

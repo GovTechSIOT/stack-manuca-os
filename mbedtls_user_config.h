@@ -53,6 +53,10 @@
     #define MBEDTLS_PEM_WRITE_C
 #endif //MBEDTLS_PEM_WRITE_C
 
+#ifndef MBEDTLS_PKCS5_C
+    #define MBEDTLS_PKCS5_C
+#endif // MBEDTLS_PKCS5_C
+
 // Configure mbedTLS to use alternative implementation
 #if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
     // #define MBEDTLS_ENTROPY_HARDWARE_ALT

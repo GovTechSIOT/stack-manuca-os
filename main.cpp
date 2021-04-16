@@ -67,8 +67,7 @@ int main()
 
     mbed_trace_init();
 
-    bool boot = EnterBootManager();
-    if (ReadInitFlag() != "true" || boot)
+    if (EnterBootManager())
     {
         RunBootManager();
     }

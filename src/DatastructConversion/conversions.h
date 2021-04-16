@@ -26,6 +26,8 @@ std::string IntToHex(uint32_t i);
 std::string IntToString(int v);
 std::string MsPaddingIntToString(int v);
 char* DoubleToChar(char* str, double v, int decimalDigits);
+std::string CharToHex(unsigned char* arr, int len);
+void HexToChar(std::string str, unsigned char* arr);
 int StringToInt(const std::string& str);
 std::string TimeToString(const std::time_t time);
 std::time_t StringToTime(const std::string& str);

@@ -19,12 +19,17 @@
 
 #include <string> 
 #include "mbed.h"
+#include "persist_config.h"
 
 void PrintHeader(void);
 void PrintMenu(void);
 bool EnterBootManager(void);
 void RunBootManager(void);
 void InitAfterLogin(void);
+bool GenerateSalt(unsigned char* salt, int salt_len);
+bool GetDerivedKeyFromPass(std::string pass, const unsigned char* salt, int salt_len, unsigned char* derived_key, int derived_key_len);
+void ChangeBootManagerPass(void);
+bool CheckBootManagerPass(std::string pass);
 void BootManagerLogin(void);
 std::string GetUserInputString(bool is_hidden = false);
 void SetDefaultConfig(void);
