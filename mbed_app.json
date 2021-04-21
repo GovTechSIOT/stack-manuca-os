@@ -24,7 +24,7 @@
         },
         "wifi-en": {
             "help": "EN pin for ESP32 WiFi driver",
-            "value": "PC_8"    
+            "value": "PF_11"    
         },
         "wifi-tx": {
             "help": "TX pin to WiFi module",
