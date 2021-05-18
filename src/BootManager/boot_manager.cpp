@@ -18,7 +18,7 @@
 UnbufferedSerial pc(USBTX, USBRX, 115200);
 
 const chrono::seconds boot_timeout = 5s;    
-const std::string sdk_ver = "3.2.0";
+const std::string sdk_ver = "3.2.1";
 const uint8_t max_login_attempts = 3;
 const std::string poll_rate_ms = "10000";
 const std::string uuid = GetDeviceUid();

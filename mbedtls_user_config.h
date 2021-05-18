@@ -57,12 +57,16 @@
     #define MBEDTLS_PKCS5_C
 #endif // MBEDTLS_PKCS5_C
 
-// Configure mbedTLS to use alternative implementation
 #if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
-    // #define MBEDTLS_ENTROPY_HARDWARE_ALT
+    // Use alternative Trust X implementation
     #define MBEDTLS_ECDSA_GENKEY_ALT
     #define MBEDTLS_ECDSA_VERIFY_ALT
     #define MBEDTLS_ECDSA_SIGN_ALT
     #define MBEDTLS_ECDH_COMPUTE_SHARED_ALT
     #define MBEDTLS_ECDH_GEN_PUBLIC_ALT
+    
+    // Trust X driver supports only the secp256r1 curve
+    #undef MBEDTLS_ECP_DP_SECP384R1_ENABLED
+    #undef MBEDTLS_ECP_DP_CURVE25519_ENABLED
+    #undef MBEDTLS_ECP_DP_CURVE448_ENABLED
 #endif // MBED_CONF_APP_USE_SE_TLS

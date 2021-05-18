@@ -53,11 +53,30 @@
  */
 
 /* List of trusted Root CA Certificates
- * For DecadaManager: Sectigo Root CA
  *
  * To add more root certificates, just concatenate them.
  */
-const char ROOT_CA_PEM[] =  
+const char ROOT_CA_PEM[] =
+#if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
+    // DECADA ECC CA
+    "-----BEGIN CERTIFICATE-----\n"
+    "MIICeDCCAh6gAwIBAgIJAI+tmPr6I72cMAoGCCqGSM49BAMCMIGOMQswCQYDVQQG\n"
+    "EwJTRzESMBAGA1UECAwJU2luZ2Fwb3JlMRIwEAYDVQQHDAlTaW5nYXBvcmUxDzAN\n"
+    "BgNVBAoMBkRFQ0FEQTESMBAGA1UECwwJREVDQURBIENBMRYwFAYDVQQDDA1ERUNB\n"
+    "REEgRUNDIENBMRowGAYJKoZIhvcNAQkBFgtjYUBlbmlvdC5pbzAeFw0yMTA0MDYw\n"
+    "ODEyNDBaFw00MTA0MDEwODEyNDBaMIGOMQswCQYDVQQGEwJTRzESMBAGA1UECAwJ\n"
+    "U2luZ2Fwb3JlMRIwEAYDVQQHDAlTaW5nYXBvcmUxDzANBgNVBAoMBkRFQ0FEQTES\n"
+    "MBAGA1UECwwJREVDQURBIENBMRYwFAYDVQQDDA1ERUNBREEgRUNDIENBMRowGAYJ\n"
+    "KoZIhvcNAQkBFgtjYUBlbmlvdC5pbzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IA\n"
+    "BHJZd9G+8trzUSdR4mJFOxDdGICTu2qOnGD46LpFcRTiIV44KGpsHCw+6DgDcu39\n"
+    "QogY5wNmz1//RLoLwR0X2yejYzBhMB0GA1UdDgQWBBSUUVv0pl8OFoOrUrolKF5V\n"
+    "nQKapjAfBgNVHSMEGDAWgBSUUVv0pl8OFoOrUrolKF5VnQKapjAPBgNVHRMBAf8E\n"
+    "BTADAQH/MA4GA1UdDwEB/wQEAwIBBjAKBggqhkjOPQQDAgNIADBFAiBVSwCXZan9\n"
+    "Obxp7Eb3kJNdXtQyU55BuK0U2ekmhCm2egIhAKW5jC63BHhkXWZMjGLUiGZMVkBP\n"
+    "KcoIVZih2nBV6lq6\n"
+    "-----END CERTIFICATE-----\n"
+#endif // MBED_CONF_APP_USE_SECURE_ELEMENT
+    // Sectigo Root CA
     "-----BEGIN CERTIFICATE-----\n"
     "MIIGGTCCBAGgAwIBAgIQE31TnKp8MamkM3AZaIR6jTANBgkqhkiG9w0BAQwFADCB\n"
     "iDELMAkGA1UEBhMCVVMxEzARBgNVBAgTCk5ldyBKZXJzZXkxFDASBgNVBAcTC0pl\n"
@@ -167,7 +186,7 @@ class DecadaManager : public CryptoEngine
         const std::string api_url_ = MBED_CONF_APP_DECADA_API_URL;
         const std::string broker_ip_ = "mqtt.decada.gov.sg";      
 #if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)      
-        const int mqtt_server_port_ = 18886;
+        const int mqtt_server_port_ = 18887;
 #else
         const int mqtt_server_port_ = 18885;
 #endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
