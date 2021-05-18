@@ -8,17 +8,17 @@
         },
         "i2c-sda-pin": {
             "help": "Sets the SDA pin.",
-            "value": "PF_0",
+            "value": "PF_15",
             "macro_name": "OPTIGA_TRUST_X_I2C_SDA"
         },
         "i2c-scl-pin": {
             "help": "Sets the SCL pin.",
-            "value": "PF_1",
+            "value": "PF_14",
             "macro_name": "OPTIGA_TRUST_X_I2C_SCL"
         },
         "reset-pin": {
             "help": "Sets the reset pin.",
-            "value": "PF_2",
+            "value": "PE_14",
             "macro_name": "OPTIGA_TRUST_X_RESET"
         }
     }
