@@ -20,7 +20,7 @@
         },
         "use-secure-element": {
             "help": "Uses the secure element to handle client authentication and cryptographic operations in the TLS session",
-            "value": false
+            "value": true
         },
         "wifi-en": {
             "help": "EN pin for ESP32 WiFi driver",
