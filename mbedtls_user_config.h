@@ -65,4 +65,9 @@
     #define MBEDTLS_ECDSA_SIGN_ALT
     #define MBEDTLS_ECDH_COMPUTE_SHARED_ALT
     #define MBEDTLS_ECDH_GEN_PUBLIC_ALT
+    
+    // Trust X driver supports only the secp256r1 curve
+    #undef MBEDTLS_ECP_DP_SECP384R1_ENABLED
+    #undef MBEDTLS_ECP_DP_CURVE25519_ENABLED
+    #undef MBEDTLS_ECP_DP_CURVE448_ENABLED
 #endif // MBED_CONF_APP_USE_SE_TLS
