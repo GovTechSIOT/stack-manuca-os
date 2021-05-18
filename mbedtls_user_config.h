@@ -57,9 +57,8 @@
     #define MBEDTLS_PKCS5_C
 #endif // MBEDTLS_PKCS5_C
 
-// Configure mbedTLS to use alternative implementation
 #if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
-    // #define MBEDTLS_ENTROPY_HARDWARE_ALT
+    // Use alternative Trust X implementation
     #define MBEDTLS_ECDSA_GENKEY_ALT
     #define MBEDTLS_ECDSA_VERIFY_ALT
     #define MBEDTLS_ECDSA_SIGN_ALT

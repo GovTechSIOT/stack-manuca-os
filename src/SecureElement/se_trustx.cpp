@@ -408,27 +408,4 @@ int mbedtls_ecdh_compute_shared(mbedtls_ecp_group *grp, mbedtls_mpi *z,
 }
 #endif // MBEDTLS_ECDH_COMPUTE_SHARED_ALT
 
-/**
- *  @brief      Entropy poll callback for a hardware source.
- *  @author     Lee Tze Han
- *  @return     0 (success) / 1 (failure)
- *  @note       Uses the Trust X TRNG to seed mbedTLS DRNG
- */
-#ifdef MBEDTLS_ENTROPY_HARDWARE_ALT
-int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t *olen)
-{
-    tr_debug("Using MBEDTLS_ENTROPY_HARDWARE_ALT implementation");
-	
-	int status = optiga_crypt_random(OPTIGA_RNG_TYPE_TRNG, output, len);
-	if (status != OPTIGA_LIB_SUCCESS)
-	{
-		*olen = 0;
-		return 1;
-	}
-
-    *olen = len;
-	return 0;
-}
-#endif // MBEDTLS_ENTROPY_HARDWARE_ALT
-
 /** @}*/
