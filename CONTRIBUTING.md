@@ -1,4 +1,4 @@
-# Contributing to Decada Embedded
+# Contributing to DECADA Embedded
 
 decada-embedded-example-* are open-source real-time operating system examples to connect to the government IoT cloud. Contributions are an important part of the DECADA Embedded ecosystem, and our goal is to make it as simple as possible to become a contributor.
 
