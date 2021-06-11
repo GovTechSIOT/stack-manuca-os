@@ -133,6 +133,8 @@ class DecadaManager : public CryptoEngine
             : network_(net)
         {
 #endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
+        /* Store device secret used to communicate with API */
+        device_secret_ = CheckDeviceCreation();
         if (csr_ != "")
             {
                 /* Previous client certificate did not exist or was invalidated by CryptoEngine */

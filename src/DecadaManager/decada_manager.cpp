@@ -124,9 +124,6 @@ std::string DecadaManager::CheckDeviceCreation(void)
  */
 bool DecadaManager::Connect(void)
 {
-    /* Store device secret used to communicate with API */
-    device_secret_ = CheckDeviceCreation();
-
     /* Establish MQTT Connection */
     return ConnectMqttNetwork() && ConnectMqttClient();
 }
