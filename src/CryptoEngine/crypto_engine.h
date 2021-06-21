@@ -11,6 +11,14 @@
 #undef TRACE_GROUP
 #define TRACE_GROUP  "CryptoEngine"
 
+/* Expected response from signing CSR */
+typedef struct {
+    // Certificate from CA signing CSR
+    std::string cert;
+    // Serial number of issued certificate
+    std::string cert_sn;
+} csr_sign_resp;
+
 class CryptoEngine
 {
     public:
@@ -41,29 +49,14 @@ class CryptoEngine
                 return;
             }
 
-            std::string client_cert = ReadClientCertificate();
-            csr_ = "";
-
-            /* Generate keypair if certificate is invalid */
-            if (client_cert == "" || client_cert == "invalid")
-            {
-                csr_ = GenerateCertificateSigningRequest();
-                if (csr_ == "")
-                {
-                    tr_error("No client certificate; failed to generate new CSR");
-                }
-            }
 #if defined(MBED_CONF_APP_USE_SECURE_ELEMENT) && (MBED_CONF_APP_USE_SECURE_ELEMENT == 1)
-            else
-            {
-                /* Configure mbedTLS to use SE-enabled methods */
-                pk_info_ = secure_element_->GetConfiguredPkInfo();
-                pk_ctx_.pk_info = &pk_info_;
-            }
+            /* Configure mbedTLS to use SE-enabled methods */
+            pk_info_ = secure_element_->GetConfiguredPkInfo();
+            pk_ctx_.pk_info = &pk_info_;
 #endif   // MBED_CONF_APP_USE_SECURE_ELEMENT
         }
 
-        ~CryptoEngine(void)
+        virtual ~CryptoEngine(void)
         {
             mbedtls_pk_free(&pk_ctx_);
             mbedtls_ctr_drbg_free(&ctrdrbg_ctx_);
@@ -76,18 +69,21 @@ class CryptoEngine
 #endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
         }
 
-        std::string GenerateCertificateSigningRequest(void);
-        std::string GetCertificateSubjectName(void);
         bool X509IssuerInfo (char* buf, size_t size, const mbedtls_x509_crt* crt);
 
         static std::string GenericSHA256Generator(std::string input);
     
     protected:
+        csr_sign_resp GetClientCertificate(void);
+
         mbedtls_pk_context pk_ctx_;
-        std::string csr_;
 
     private:
         bool GenerateKeypair(void);
+        std::string GenerateCertificateSigningRequest(void);
+        std::string GetCertificateSubjectName(void);
+
+        virtual csr_sign_resp SignCertificateSigningRequest(std::string csr) = 0;
 
         const char* mbedtls_pers_ = "gen_key";
         const std::string cert_subject_base_ = "C=SG, ST=Singapore, L=Singapore, O=DECADA, OU=DECADA CA, CN=";

@@ -91,6 +91,37 @@ csr_sign_resp DecadaManager::SignCertificateSigningRequest(std::string csr)
 }
 
 /**
+ *  @brief	Check TLS credentials.
+ *  @author	Lee Tze Han
+ *  @return	Device has valid TLS credentials
+ */
+bool DecadaManager::CheckCredentials(void)
+{
+    std::string client_cert = ReadClientCertificate();
+
+    /* Already has valid certificate */
+    if (client_cert != "" && client_cert != "invalid")
+    {
+        tr_info("Using saved client certificate");
+        return true;
+    }
+
+    /* Create a new client certificate (and keypair) */
+    csr_sign_resp resp = GetClientCertificate();
+    if (resp.cert != "invalid" && resp.cert_sn != "invalid")
+    {
+        WriteClientCertificate(resp.cert);
+        WriteClientCertificateSerialNumber(resp.cert_sn);
+
+        return true;
+    }
+
+    tr_warn("Failed to get signed client certificate");
+    
+    return false;
+}
+
+/**
  *  @brief      Ensures device has been created in DECADA.
  *  @details    The device secret is returned if the device has been created, otherwise attempts to create device through a RESTful call.
  *  @author     Lau Lee Hong, Lee Tze Han
@@ -124,6 +155,13 @@ std::string DecadaManager::CheckDeviceCreation(void)
  */
 bool DecadaManager::Connect(void)
 {
+    /* Ensure TLS credentials are valid */
+    if (!CheckCredentials()) 
+    {
+        tr_err("DecadaManager has no valid TLS credentials");
+        return false;
+    }
+
     /* Establish MQTT Connection */
     return ConnectMqttNetwork() && ConnectMqttClient();
 }
