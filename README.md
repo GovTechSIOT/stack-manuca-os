@@ -47,8 +47,8 @@ Other hardware targets supported by MbedOS can utilize the repository by changin
 
 
 ## Variants
-Besides MbedOS, we provide embedded source code example to connect to DECADA Cloud using [Zephyr](https://www.zephyrproject.org/) as well.
-`decada-embedded-example-zephyr`: https://github.com/GovTechSIOT/decada-embedded-example-zephyr
+Besides MbedOS, we provide embedded source code example(s) to connect to DECADA Cloud using other RTOS(es) as well.
+* [Zephyr](https://www.zephyrproject.org/): `decada-embedded-example-zephyr` (https://github.com/GovTechSIOT/decada-embedded-example-zephyr)
 
 
 
