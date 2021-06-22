@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['optiga_20trust_20x_20secure_20element_33',['Optiga Trust X Secure Element',['../group__se__trustx.html',1,'']]]
+  ['license_44',['LICENSE',['../md__l_i_c_e_n_s_e.html',1,'']]]
 ];

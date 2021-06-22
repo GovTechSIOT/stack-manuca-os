@@ -1,12 +1,15 @@
 var searchData=
 [
-  ['generatecertificatesigningrequest_20',['GenerateCertificateSigningRequest',['../group__crypto__engine.html#gab1f1da71f54ed58341b7baedf1e49c6f',1,'CryptoEngine']]],
-  ['generateecckeypair_21',['GenerateEccKeypair',['../group__se__trustx.html#gad6ee4e40b50ec830d17be8359fbcc42f',1,'TrustX']]],
-  ['genericsha256generator_22',['GenericSHA256Generator',['../group__crypto__engine.html#ga37daf50987e9822587834e91bd22e402',1,'CryptoEngine']]],
-  ['getcertificatesubjectname_23',['GetCertificateSubjectName',['../group__crypto__engine.html#gae47faa01ffcfba69f1054719903c9b95',1,'CryptoEngine']]],
-  ['getconfiguredpkinfo_24',['GetConfiguredPkInfo',['../group__se__trustx.html#gae62b8afaf277bfa7536f1db62b4ccc8c',1,'TrustX']]],
-  ['getdeviceuid_25',['GetDeviceUid',['../group__device__uuid.html#ga69b32abad345ab3d605a9a920e261c4a',1,'GetDeviceUid(void):&#160;device_uid.cpp'],['../group__device__uuid.html#ga69b32abad345ab3d605a9a920e261c4a',1,'GetDeviceUid(void):&#160;device_uid.cpp']]],
-  ['getmqttstackpointer_26',['GetMqttStackPointer',['../group__decada__manager.html#ga6846e57e38dfd4531df5f84161aaac89',1,'DecadaManager']]],
-  ['getnewdecadapacket_27',['GetNewDecadaPacket',['../group__sensor__profile.html#ga97dda4be4c03e8f1c93c471f48e7d404',1,'SensorProfile']]],
-  ['getuserinputstring_28',['GetUserInputString',['../group__boot__manager.html#ga609f7efea8af76e057ed3ef68669d513',1,'GetUserInputString(bool is_hidden):&#160;boot_manager.cpp'],['../group__boot__manager.html#ga609f7efea8af76e057ed3ef68669d513',1,'GetUserInputString(bool is_hidden=false):&#160;boot_manager.cpp']]]
+  ['generateecckeypair_28',['GenerateEccKeypair',['../group__se__trustx.html#gad6ee4e40b50ec830d17be8359fbcc42f',1,'TrustX']]],
+  ['generatesalt_29',['GenerateSalt',['../group__boot__manager.html#gab9c924d87b4263f8bcc519b6122d2b2b',1,'GenerateSalt(unsigned char *salt, int salt_len):&#160;boot_manager.cpp'],['../group__boot__manager.html#gab9c924d87b4263f8bcc519b6122d2b2b',1,'GenerateSalt(unsigned char *salt, int salt_len):&#160;boot_manager.cpp']]],
+  ['genericsha256generator_30',['GenericSHA256Generator',['../group__crypto__engine.html#ga37daf50987e9822587834e91bd22e402',1,'CryptoEngine']]],
+  ['getclientcertificate_31',['GetClientCertificate',['../group__crypto__engine.html#gacbdbf5c7ddf3ebecf90ee10bae5b18e6',1,'CryptoEngine']]],
+  ['getconfiguredpkinfo_32',['GetConfiguredPkInfo',['../group__se__trustx.html#gae62b8afaf277bfa7536f1db62b4ccc8c',1,'TrustX']]],
+  ['getdata_33',['GetData',['../class_scd30.html#ad576b1de0f018b5f659debcd2f96fc12',1,'Scd30::GetData()'],['../class_sps30.html#aee337e477c029597779a58abb09bf6a8',1,'Sps30::GetData()'],['../class_tmp75.html#a57d292db84fa45cc5a1068e7ca1112c7',1,'Tmp75::GetData()']]],
+  ['getderivedkeyfrompass_34',['GetDerivedKeyFromPass',['../group__boot__manager.html#ga7f6c8896291b6f8eb996a7d1665ded02',1,'GetDerivedKeyFromPass(std::string pass, const unsigned char *salt, int salt_len, unsigned char *derived_key, int derived_key_len):&#160;boot_manager.cpp'],['../group__boot__manager.html#ga7f6c8896291b6f8eb996a7d1665ded02',1,'GetDerivedKeyFromPass(std::string pass, const unsigned char *salt, int salt_len, unsigned char *derived_key, int derived_key_len):&#160;boot_manager.cpp']]],
+  ['getdeviceuid_35',['GetDeviceUid',['../group__device__uuid.html#ga69b32abad345ab3d605a9a920e261c4a',1,'GetDeviceUid(void):&#160;device_uid.cpp'],['../group__device__uuid.html#ga69b32abad345ab3d605a9a920e261c4a',1,'GetDeviceUid(void):&#160;device_uid.cpp']]],
+  ['getmqttstackpointer_36',['GetMqttStackPointer',['../group__decada__manager.html#ga6846e57e38dfd4531df5f84161aaac89',1,'DecadaManager']]],
+  ['getname_37',['GetName',['../class_scd30.html#a0f3c936ff55d6a1df540da4d41cf18f3',1,'Scd30::GetName()'],['../class_sps30.html#a1df6c1bc41b032c511c90df7bc2ea4ef',1,'Sps30::GetName()'],['../class_tmp75.html#a59fef098fb8abb32e2de4603e7fbcc01',1,'Tmp75::GetName()']]],
+  ['getnewdecadapacket_38',['GetNewDecadaPacket',['../group__sensor__profile.html#ga97dda4be4c03e8f1c93c471f48e7d404',1,'SensorProfile']]],
+  ['getuserinputstring_39',['GetUserInputString',['../group__boot__manager.html#ga609f7efea8af76e057ed3ef68669d513',1,'GetUserInputString(bool is_hidden):&#160;boot_manager.cpp'],['../group__boot__manager.html#ga609f7efea8af76e057ed3ef68669d513',1,'GetUserInputString(bool is_hidden=false):&#160;boot_manager.cpp']]]
 ];
