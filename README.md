@@ -1,15 +1,15 @@
 <a href="https://govtechsiot.github.io/decada-embedded-example-mbedos/"><img src="https://codedocs.xyz/doxygen/doxygen.svg"/></a>
 
 ## Introduction
-`decada-embedded-example-mbedos`, previously known as stack-manuca-os, is a functional real-time operating system example using mbedos for embedded software developers to reference and build upon. This example showcases how one can publish sensor measure points to the government's IoT infrastructure via DECADA Cloud.
+`decada-embedded-example-mbedos`, previously known as stack-manuca-os, is a functional real-time operating system example using [MbedOS](https://os.mbed.com/) for embedded software developers to reference and build upon. This example showcases how one can publish sensor measure points to the government's IoT infrastructure via DECADA Cloud.
 
 
 
 ## Development Team
-
 * Lau Lee Hong (lau\_lee\_hong@tech.gov.sg)
 * Yap Zi Qi    (yap\_zi\_qi@tech.gov.sg)
 * Goh Kok Boon (goh\_kok\_boon@tech.gov.sg)
+* Lee Tze Han
 
 
 
@@ -36,20 +36,19 @@
 
 
 ### Hardware Setup
-
 This repository is tested on the STM32F767ZI DK with peripherals configured as:
+* **ESP32**
+  * Pins configurable in `mbed_app.json` (`wifi-tx`, `wifi-rx`, `wifi-en`)
+* **Infineon Optiga Trust X**
+  * Pins configurable in `lib/optiga/mbed_lib.json`
 
-**ESP32**
+Other hardware targets supported by MbedOS can utilize the repository by changing the targeted board in the compilation process.
 
-- Pins configurable in `mbed_app.json` (`wifi-tx`, `wifi-rx`, `wifi-en`)
 
-**Infineon Optiga Trust X**
 
-- Pins configurable in `lib/optiga/mbed_lib.json`
-
----
-
-Other hardware targets supported by Mbed OS can utilize the repository by changing the targeted board in the compilation process.
+## Variants
+Besides MbedOS, we provide embedded source code example to connect to DECADA Cloud using [Zephyr](https://www.zephyrproject.org/) as well.
+`decada-embedded-example-zephyr`: https://github.com/GovTechSIOT/decada-embedded-example-zephyr
 
 
 
