@@ -113,14 +113,6 @@ const char ROOT_CA_PEM[] =
     "MntHWpdLgtJmwsQt6j8k9Kf5qLnjatkYYaA7jBU=\n"
     "-----END CERTIFICATE-----\n";
 
-/* Expected response from signing CSR */
-typedef struct {
-    // Certificate from CA signing CSR
-    std::string cert;
-    // Serial number of issued certificate
-    std::string cert_sn;
-} csr_sign_resp;
-
 class DecadaManager : public CryptoEngine
 {
     public:
@@ -133,24 +125,11 @@ class DecadaManager : public CryptoEngine
             : network_(net)
         {
 #endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
-        /* Store device secret used to communicate with API */
-        device_secret_ = CheckDeviceCreation();
-        if (csr_ != "")
-            {
-                /* Previous client certificate did not exist or was invalidated by CryptoEngine */
-                csr_sign_resp sign_resp = SignCertificateSigningRequest(csr_);
 
-                if (sign_resp.cert != "invalid" && sign_resp.cert_sn != "invalid")
-                {
-                    WriteClientCertificate(sign_resp.cert);
-                    WriteClientCertificateSerialNumber(sign_resp.cert_sn);
-                }
-            }
+            /* Store device secret used to communicate with API */
+            device_secret_ = CheckDeviceCreation();
         }
         
-        /* Used by CryptoEngine to sign CSR */
-        csr_sign_resp SignCertificateSigningRequest(std::string csr);
-
         std::string CheckDeviceCreation(void);
 
         /* Publish & Subscribe */
@@ -162,6 +141,10 @@ class DecadaManager : public CryptoEngine
         mqtt_stack* GetMqttStackPointer(void);
 
     private:
+        /* Used by CryptoEngine to sign CSR */
+        csr_sign_resp SignCertificateSigningRequest(std::string csr) override;
+        bool CheckCredentials(void);
+
         /* DECADA Provisioning */
         std::string GetAccessToken(void);
         std::string GetDeviceSecret(void);

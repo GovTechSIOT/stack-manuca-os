@@ -30,6 +30,24 @@
 #endif  // MBED_CONF_APP_USE_SECURE_ELEMENT
 
 /**
+ *  @brief  Generate a signed client certificate.
+ *  @author Lee Tze Han
+ *  @return Returns a csr_sign_resp struct
+ */
+csr_sign_resp CryptoEngine::GetClientCertificate(void)
+{
+    std::string csr = GenerateCertificateSigningRequest();
+
+    if (csr == "" || csr == "invalid") 
+    {
+        tr_warn("Failed to generate CSR");
+        return {"invalid", "invalid"};
+    }
+
+    return SignCertificateSigningRequest(csr);
+}
+
+/**
  *  @brief  Generate a keypair.
  *  @author Lee Tze Han
  *  @return true (success) / false (failure)
@@ -46,10 +64,6 @@ bool CryptoEngine::GenerateKeypair(void)
     
     pk_ctx_.pk_ctx = &ecp_keypair_;
 
-    /* Configure mbedTLS to use SE-enabled methods */
-    /* Must be configured before generating keypair */
-    pk_info_ = secure_element_->GetConfiguredPkInfo();
-    pk_ctx_.pk_info = &pk_info_;
 #else
     int rc = mbedtls_rsa_gen_key(&rsa_keypair_, mbedtls_ctr_drbg_random, &ctrdrbg_ctx_, MBEDTLS_KEY_SIZE, MBEDTLS_EXPONENT);
     if (rc != 0)
